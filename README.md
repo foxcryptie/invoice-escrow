@@ -1,15 +1,21 @@
 # Invoice Escrow (Solidity + Foundry)
 
-> **Status: private learning draft.** I used AI assistance for the first version
-> and have not completed my own security review yet. I am keeping it private
-> until I can explain and verify the full design. Do not deploy it with real
-> funds.
+[![Foundry CI](https://github.com/foxcryptie/invoice-escrow/actions/workflows/ci.yml/badge.svg)](https://github.com/foxcryptie/invoice-escrow/actions/workflows/ci.yml)
 
-A small, self-contained contract for a fixed-price invoice. The client funds it on deployment, then either releases payment to the contractor or takes a refund. It is an educational draft, not an audited production escrow.
+A small, self-contained contract for a fixed-price invoice. The client funds it
+on deployment, then either releases payment to the contractor or takes a
+refund. I built it to practice state transitions, access control, ETH transfers,
+and failure handling in Foundry.
 
-## Why this project
+This is a learning project, not an audited production escrow. Do not use it to
+hold real funds.
 
-The repository is designed to show a clear state machine, access control, ETH transfer handling, tests, and a short security review. The two terminal states are `Released` and `Refunded`; neither can be entered twice.
+## What I wanted to test
+
+The contract has one active state, `Funded`, and two terminal states,
+`Released` and `Refunded`. Neither terminal state can be entered twice. The
+tests cover both paths, unauthorized calls, failed ETH transfers, invalid
+deployments, and fuzzed deposit amounts.
 
 ## Run locally
 
@@ -43,9 +49,12 @@ No third-party Solidity libraries are required.
 - `foundry.toml`: compiler and test configuration
 - `docs/THREAT_MODEL.md`: assumptions, invariants, and known limits
 
-## Next steps
+## If I extend it
 
-Add a contractor-submission step, a review deadline, and a clearly specified dispute mechanism before considering real-world use.
+A more realistic version would need a contractor-submission step, a review
+deadline, and a clearly specified dispute mechanism. Those features are out of
+scope here because they would change the trust model rather than simply add
+convenience.
 
 ## License
 
